@@ -16,7 +16,6 @@ vad = webrtcvad.Vad()
 vad.set_mode(3)
 
 #addable_pattern = ''
-#'C:/Users/김남형/Desktop/연구/연구소스/data/speech_commands_v0.01/'
 
 # 사용할 단어들 
 google_word =['bed','bird','cat','dog','down','eight','five','four','go','happy','house','left','marvin','nine','no','off','on','one','right','seven','sheila','six','stop','three','tree','two','up','wow','yes','zero']
