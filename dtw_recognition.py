@@ -424,5 +424,10 @@ def evaulate_k_dtw(codebook_size_of_each_word=5, k_means_iter =10):
 
 if __name__ == "__main__":
     #set_codebook_with_dtw_k_means(3,10)
+<<<<<<< HEAD
     #evaulate_normal_dtw(codebook_size_of_each_word=10, order='fix')
     evaulate_k_dtw(codebook_size_of_each_word=3, k_means_iter=50)
+=======
+    evaulate_normal_dtw(codebook_size_of_each_word=10, order='fix')
+    #evaulate_k_dtw(codebook_size_of_each_word=10, k_means_iter=50)
+>>>>>>> 04a786ab14eefb092b2ab01126104a51eeac6062
