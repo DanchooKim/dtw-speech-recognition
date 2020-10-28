@@ -15,9 +15,6 @@ from scipy.io import wavfile
 vad = webrtcvad.Vad()
 vad.set_mode(3)
 
-#addable_pattern = ''
-#'C:/Users/김남형/Desktop/연구/연구소스/data/speech_commands_v0.01/'
-
 # 사용할 단어들 
 google_word =['bed','bird','cat','dog','down','eight','five','four','go','happy','house','left','marvin','nine','no','off','on','one','right','seven','sheila','six','stop','three','tree','two','up','wow','yes','zero']
 
@@ -201,7 +198,7 @@ def set_codebook_normal(codebook_size_of_each_word,order ='fix'):
     '''
     global CODEBOOK
     for i in WORDS:
-        path = list(pathlib.Path('C:/Users/김남형/Desktop/연구/연구소스/data/speech_commands_v0.01/'+i+'/').glob('*.wav'))
+        path = list(pathlib.Path('./data/speech_commands_v0.01/'+i+'/').glob('*.wav'))
         number_list = get_list_number(list_length=len(path),amount_of_data=codebook_size_of_each_word, order = order)
         #print(number_list)
         for j in number_list:
@@ -224,7 +221,7 @@ def set_codebook_with_dtw_k_means(codebook_size_of_each_word, itera = 10):
 
     #형태:BED: [(0,mfcc),(0,mfcc)...... (0,mfcc)], CAT: [(0,mfcc),(0,mfcc)...... (0,mfcc)]
     for i in tqdm(WORDS, desc="Extract_MFCC"):
-        path =list(pathlib.Path('C:/Users/김남형/Desktop/연구/연구소스/data/speech_commands_v0.01/'+i+'/').glob('*.wav'))
+        path =list(pathlib.Path('./data/speech_commands_v0.01/'+i+'/').glob('*.wav'))
         mfccs_set = []
         for j  in path:
             mfccs_set.append((0,read_trimmed_mfcc_from_wavpath(j.as_posix())))
@@ -294,7 +291,7 @@ def set_codebook_with_dtw_k_means_novad(codebook_size_of_each_word, itera = 10):
 
     #형태:BED: [(0,mfcc),(0,mfcc)...... (0,mfcc)], CAT: [(0,mfcc),(0,mfcc)...... (0,mfcc)]
     for i in tqdm(WORDS, desc="Extract_MFCC"):
-        path =list(pathlib.Path('C:/Users/김남형/Desktop/연구/연구소스/data/speech_commands_v0.01/'+i+'/').glob('*.wav'))
+        path =list(pathlib.Path('./data/speech_commands_v0.01/'+i+'/').glob('*.wav'))
         mfccs_set = []
         for j  in path:
             mfccs_set.append((0,mfcc_from_wavpath(j.as_posix())))
@@ -390,7 +387,7 @@ def evaulate_normal_dtw(codebook_size_of_each_word=5, order ='fix'):
     set_codebook_normal(codebook_size_of_each_word=codebook_size_of_each_word,order=order)
     path = './data/speech_commands_v0.01/testing_list.txt'
     
-    speech_tuple = load_filepath_for_speech_commands('./data/speech_commands_v0.01/testing_list.txt','')
+    speech_tuple = load_filepath_for_speech_commands('./data/speech_commands_v0.01/testing_list.txt','./data/speech_commands_v0.01/test/')
     fail =0
     success =0
     
@@ -409,7 +406,7 @@ def evaulate_k_dtw(codebook_size_of_each_word=5, k_means_iter =10):
 
     set_codebook_with_dtw_k_means(codebook_size_of_each_word=codebook_size_of_each_word,itera = k_means_iter)
    
-    speech_tuple = load_filepath_for_speech_commands('./data/speech_commands_v0.01/testing_list.txt','')
+    speech_tuple = load_filepath_for_speech_commands('./data/speech_commands_v0.01/testing_list.txt','./data/speech_commands_v0.01/test/')
     fail =0
     success =0
 
@@ -427,5 +424,5 @@ def evaulate_k_dtw(codebook_size_of_each_word=5, k_means_iter =10):
 
 if __name__ == "__main__":
     #set_codebook_with_dtw_k_means(3,10)
-    evaulate_normal_dtw(codebook_size_of_each_word=10, order='fix')
-    #evaulate_k_dtw(codebook_size_of_each_word=10, k_means_iter=50)
+    #evaulate_normal_dtw(codebook_size_of_each_word=10, order='fix')
+    evaulate_k_dtw(codebook_size_of_each_word=3, k_means_iter=50)
